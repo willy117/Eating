@@ -1,19 +1,15 @@
 name: Deploy to GitHub Pages
 
 on:
-  # 當推送到 main 分支時觸發
   push:
     branches: [ main ]
-  # 允許手動從 Actions 頁面觸發
   workflow_dispatch:
 
-# 允許 GITHUB_TOKEN 進行部署的權限設定
 permissions:
   contents: read
   pages: write
   id-token: write
 
-# 允許同時間只有一個部署任務在執行
 concurrency:
   group: "pages"
   cancel-in-progress: true
@@ -29,16 +25,15 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm'
-
+          # Remove cache: 'npm' because it requires package-lock.json to exist initially
+          
       - name: Install dependencies
-        run: npm ci # 使用 npm ci 進行乾淨安裝
+        # Changed from 'npm ci' to 'npm install' to generate lock file on the fly
+        run: npm install
 
       - name: Build project
         run: npm run build
         env:
-          # 將剛剛設定的 Secret 注入環境變數
-          # Vite 會讀取這個變數並將其打包進程式碼中
           VITE_API_KEY: ${{ secrets.VITE_API_KEY }}
 
       - name: Upload artifact
