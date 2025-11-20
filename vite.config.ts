@@ -4,8 +4,7 @@ import react from '@vitejs/plugin-react';
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
   // 載入環境變數，允許讀取 VITE_ 開頭以及一般環境變數
-  // Fix: Cast process to any to resolve TS error 'Property cwd does not exist on type Process'
-  const env = loadEnv(mode, (process as any).cwd(), '');
+  const env = loadEnv(mode, process.cwd(), '');
 
   return {
     plugins: [react()],
