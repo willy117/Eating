@@ -1,0 +1,7 @@
+{
+  "name": "NEW_現在吃什麼 (What to Eat Now)",
+  "description": "基於您目前位置的智慧美食推薦助手，提供類型篩選與 Google Maps 導航。",
+  "requestFramePermissions": [
+    "geolocation"
+  ]
+}
